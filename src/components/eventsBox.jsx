@@ -45,7 +45,7 @@ export default function EventsBox() {
     useEffect(()=> {
         async function fetchDate() {
 
-            const response = await fetch("https://oq9gpqc3n6.execute-api.ap-south-1.amazonaws.com/prod/event/"+id)
+            const response = await fetch("https://5auyrh3d2l.execute-api.ap-south-1.amazonaws.com/test/event/"+id)
             const responseJson = (
                 ({
                      ok, status, statusText, headers,
