@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../assets/css/page.css';
 import '../assets/css/reset.css';
-import RedirectToEventModal from "./RedirectToEventModal";
+import RedirectToEventModal from "./redirectToEventModal";
 
 export default function JoinEvent(props) {
 
