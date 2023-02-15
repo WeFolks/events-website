@@ -163,6 +163,10 @@ body {
     line-height: 18px;
 }
 
+.description {
+    align-self: flex-start;
+}
+
 .addContent {
     padding-top: 10px;
     font-size: 15px;

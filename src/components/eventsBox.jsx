@@ -8,6 +8,7 @@ import EventDetails from "./eventDetails";
 import JoinEvent from "./joinEvent";
 import {useParams} from "react-router-dom";
 import NotFound from "../assets/images/not-found.jpg";
+import styled from "styled-components";
 
 // const eventName = "Graffiti wall";
 // const description  = "Hello All welcome to my event Football match. \n\n It is going to be a begineer match 10v0";
@@ -36,6 +37,13 @@ import NotFound from "../assets/images/not-found.jpg";
 //     "locationLatitude": 12.9530319,
 //     "locationLongitude": 77.7166786
 // }
+const StyledNotFound = styled.img`
+      width: 50%;
+      margin-top: 30%;
+      @media (max-width: 456px) {
+        width: 100%;
+      }
+    `;
 export default function EventsBox() {
     const [showPopup, setShowPopup] = useState(false);
     const [event, setEvent] = useState({});
@@ -44,8 +52,10 @@ export default function EventsBox() {
 
     useEffect(()=> {
         async function fetchDate() {
-
-            const response = await fetch("https://oq9gpqc3n6.execute-api.ap-south-1.amazonaws.com/prod/event/"+id)
+            console.log()
+            const url = "https://oq9gpqc3n6.execute-api.ap-south-1.amazonaws.com/prod";
+            // const url = process.env.SERVER_URL;
+            const response = await fetch(url+"/event/"+id)
             const responseJson = (
                 ({
                      ok, status, statusText, headers,
@@ -76,7 +86,7 @@ export default function EventsBox() {
     return (
         showNotFound ?
             <>
-                <img src={NotFound}  alt={"#"} style={{height: "50%"}}/>
+                <StyledNotFound src={NotFound}  alt={"#"}/>
             </>
             :
         <>

@@ -11,7 +11,7 @@ fontawesome.library.add(faUsers, faMapMarker, faChevronCircleRight)
 
 export default function EventDetails(props) {
     function launchMap(){
-        const url = 'https://www.google.com/maps/dir//'+props.destinationCordinates;
+        const url = 'https://www.google.com/maps/dir//'+props.event.locationLatitude+','+props.event.locationLongitude;
         console.log(url);
         //open url in new page
 
@@ -19,7 +19,7 @@ export default function EventDetails(props) {
     }
 
     return (
-        <div style={{justifyItems: "flex-start", flexDirection: "column"}}>
+        <div style={{alignItems: "flex-start", flexDirection: "column"}}>
             <div className="title">
                 <div className="topic2" style={{
                     'fontSize': '17px',
@@ -30,18 +30,18 @@ export default function EventDetails(props) {
                 <div className="eventName">{props.event.name}</div>
             </div>
 
-            <div className="description" style={{justifySelf: "flex-start"}}>
+            <div className="description block" style={{textAlign: "start"}}>
                 <div className="topic">Description</div>
                 <div className="descContent">
                     {props.event.description}
                 </div>
             </div>
 
-            <div className="address block">
+            <div className="address block" style={{textAlign: "start"}}>
                 <div className="topic">Address</div>
                 <div className="addBox">
                     <div className="addContent">
-                        {props.event.description}
+                        {props.event.address}
                     </div>
                         <div className="directions" onClick={launchMap}>
                             <FontAwesomeIcon icon={faMapMarkerAlt} />
@@ -62,16 +62,16 @@ export default function EventDetails(props) {
             <div className="participantBlock">
                 <div className="attendees">
                     <div className="topic">Attendees</div>
-                    <div className="attenCount">{8}</div>
+                    <div className="attenCount">{props.event.participantPhotos.length}</div>
                     <a href="#popup1" style={{'textDecoration': 'none', 'color': 'black'}}>
                         <FontAwesomeIcon icon={faUsers} />
                     </a>
                 </div>
 
-                <a href="#popup1" style={{'textDecoration': 'none', 'color': 'black'}}>
+                <div onClick={()=>props.setShowModal(true)} style={{'textDecoration': 'none', 'color': 'black', 'background': '0', 'border': 'hidden'}}>
                     <div className="picsArray">
                         <div className="listPics">
-                            {props.event.participantPhotos.map(pic => <img src={pic}/>)}
+                            {props.event.participantPhotos.map(pic => <img src={pic} key={pic} alt={""}/>)}
                         </div>
 
                         <div className="viewAll" style={{
@@ -79,11 +79,11 @@ export default function EventDetails(props) {
                             'fontStyle': 'italic',
                             'textDecoration': 'underline;max-width: 40%',
                         }}>
-                            View All 3 Participants
+                            View All {props.event.participantPhotos.length} Participants
                         </div>
                         <FontAwesomeIcon icon={faChevronCircleRight} />
                     </div>
-                </a>
+                </div>
                 <hr/>
                 <div className="hostName ">
                     <div className="topHost">
