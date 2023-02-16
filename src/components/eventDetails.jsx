@@ -37,6 +37,15 @@ export default function EventDetails(props) {
                 </div>
             </div>
 
+            {
+                props.event.participantLimit!=null && props.event.participantLimit !==0 &&
+                <div className="description block" style={{textAlign: "start"}}>
+                    <div className="topic">Participant Limit</div>
+                    <div className="descContent">
+                        {props.event.participantLimit}
+                    </div>
+                </div>
+            }
             <div className="address block" style={{textAlign: "start"}}>
                 <div className="topic">Address</div>
                 <div className="addBox">

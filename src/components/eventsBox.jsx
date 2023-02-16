@@ -52,7 +52,7 @@ export default function EventsBox() {
 
     useEffect(()=> {
         async function fetchDate() {
-            console.log()
+            console.log();
             const url = "https://oq9gpqc3n6.execute-api.ap-south-1.amazonaws.com/prod";
             // const url = process.env.SERVER_URL;
             const response = await fetch(url+"/event/"+id)
