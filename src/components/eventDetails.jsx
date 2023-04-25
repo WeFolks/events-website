@@ -46,7 +46,6 @@ export default function EventDetails(props) {
                     </div>
                 </div>
             }
-
             <div className="address block" style={{textAlign: "start"}}>
                 <div className="topic">Address</div>
                 <div className="addBox">

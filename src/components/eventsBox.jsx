@@ -52,9 +52,7 @@ export default function EventsBox() {
 
     useEffect(()=> {
         async function fetchDate() {
-            console.log()
-            const url = "https://5auyrh3d2l.execute-api.ap-south-1.amazonaws.com/test";
-            // const url = process.env.SERVER_URL;
+            const url = process.env.REACT_APP_SERVER_URL;
             const response = await fetch(url+"/event/"+id)
             const responseJson = (
                 ({
