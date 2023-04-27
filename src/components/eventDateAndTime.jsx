@@ -11,6 +11,29 @@ fontawesome.library.add(faCalendar, faClock)
 
 
 export default function EventDateAndTime(props) {
+
+    function convertTo12Hour(time) {
+        // Split the input time string (e.g., "23:15") into hours and minutes
+        let [hours, minutes] = time.split(":");
+
+        // Convert the hours and minutes to integer values
+        hours = parseInt(hours);
+        minutes = parseInt(minutes);
+
+        // Determine the AM or PM period
+        let period = hours >= 12 ? "PM" : "AM";
+
+        // Convert the 24-hour format hours to the 12-hour format
+        if (hours > 12) {
+            hours -= 12;
+        } else if (hours === 0) {
+            hours = 12;
+        }
+
+        // Format the output string with leading zeros for single-digit hours and minutes
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${period}`;
+    }
+
     return (
         <>
             <div className="rightContent">
@@ -31,7 +54,7 @@ export default function EventDateAndTime(props) {
                         Time
                     </div>
                     <div style={{'height': '10px'}}></div>
-                    <div className="timeContent">{props.time}</div>
+                    <div className="timeContent">{convertTo12Hour(props.time)}</div>
                 </div>
             </div>
         </>

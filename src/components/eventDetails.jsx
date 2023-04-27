@@ -33,7 +33,12 @@ export default function EventDetails(props) {
             <div className="description block" style={{textAlign: "start"}}>
                 <div className="topic">Description</div>
                 <div className="descContent">
-                    {props.event.description}
+                    {props.event.description.split("\n").map((line, index) => (
+                        <div key={index}>
+                            {line}
+                            <br />
+                        </div>
+                    ))}
                 </div>
             </div>
 
@@ -42,7 +47,7 @@ export default function EventDetails(props) {
                 <div className="description block" style={{textAlign: "start"}}>
                     <div className="topic">Participant Limit</div>
                     <div className="descContent">
-                        {props.event.participantLimit}
+                        {props.event.participantLimit > 300 ? "No Limit" : props.event.participantLimit}
                     </div>
                 </div>
             }
@@ -52,9 +57,9 @@ export default function EventDetails(props) {
                     <div className="addContent">
                         {props.event.address}
                     </div>
-                        <div className="directions" onClick={launchMap}>
-                            <FontAwesomeIcon icon={faMapMarkerAlt} />
-                        </div>
+                    <div className="directions" onClick={launchMap}>
+                        <FontAwesomeIcon icon={faMapMarkerAlt} />
+                    </div>
                 </div>
             </div>
 
