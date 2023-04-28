@@ -9,6 +9,7 @@ import JoinEvent from "./joinEvent";
 import {useParams} from "react-router-dom";
 import NotFound from "../assets/images/not-found.jpg";
 import styled from "styled-components";
+import Loader from "./loader";
 
 // const eventName = "Graffiti wall";
 // const description  = "Hello All welcome to my event Football match. \n\n It is going to be a begineer match 10v0";
@@ -47,13 +48,15 @@ const StyledNotFound = styled.img`
 export default function EventsBox() {
     const [showPopup, setShowPopup] = useState(false);
     const [event, setEvent] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
-    const [showNotFound, setShowNotFound] = useState(true);
+    const [showNotFound, setShowNotFound] = useState(false);
 
-    useEffect(()=> {
-        async function fetchDate() {
+    useEffect(() => {
+        async function fetchData() {
+            setIsLoading(true);
             const url = process.env.REACT_APP_SERVER_URL;
-            const response = await fetch(url+"/event/"+id)
+            const response = await fetch(url + "/event/" + id);
             const responseJson = (
                 ({
                      ok, status, statusText, headers,
@@ -62,7 +65,6 @@ export default function EventsBox() {
                 })
             )(response);
 
-
             try {
                 responseJson.result = await response.json();
             } catch (ex) {
@@ -70,30 +72,35 @@ export default function EventsBox() {
                 responseJson.result = null;
             }
 
-            if(response.status !== 200) {
-                console.log(response.status)
+            if (response.status !== 200) {
+                console.log(response.status);
                 setShowNotFound(true);
             } else {
                 setEvent(responseJson.result);
                 setShowNotFound(false);
             }
+            setIsLoading(false);
         }
-        fetchDate();
-    })
+        fetchData();
+    }, [id]);
+
+    if (isLoading) {
+        return <Loader />; // Show loader while data is being fetched
+    }
 
     return (
         showNotFound ?
             <>
-                <StyledNotFound src={NotFound}  alt={"#"}/>
+                <StyledNotFound src={NotFound} alt={"#"}/>
             </>
             :
-        <>
+            <>
 
                 <h1>Fetching Event</h1> :
                 <div className={'mainPage'}>
                     <div className={"initialData"}>
                         <EventImage src={event.eventPhoto}/>
-                        <EventDateAndTime date = {event.date} time={event.time} />
+                        <EventDateAndTime date={event.date} time={event.time}/>
                     </div>
                     <div className={"rest"}>
                         <EventDetails
@@ -104,6 +111,6 @@ export default function EventsBox() {
                         <JoinEvent showModal={showPopup} setShowModal={setShowPopup}/>
                     </div>
                 </div>
-        </>
+            </>
     )
 }
