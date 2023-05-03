@@ -1,0 +1,61 @@
+/* otpInput.css */
+
+.otpInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #ffffff, #f8f8f8);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    max-width: 35rem;
+    margin: 0 auto;
+}
+
+.otpInput input {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 2rem;
+    text-align: center;
+    background: transparent;
+    border: 2px solid #bdbdbd;
+    border-radius: 0.5rem;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.otpInput input:focus {
+    outline: none;
+    border-color: #4e9af1;
+}
+
+.otpInput button {
+    margin-left: 1.5rem;
+    font-size: 1.5rem;
+    color: #ffffff;
+    background-color: #4e9af1;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.otpInput button:hover {
+    background-color: #3d7cc7;
+}
+
+@media screen and (max-width: 768px) {
+    .otpInput {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .otpInput input {
+        margin-bottom: 1.5rem;
+    }
+
+    .otpInput button {
+        margin-left: 0;
+    }
+}
