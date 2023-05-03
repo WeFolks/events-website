@@ -108,16 +108,20 @@ export default function EventDetails(props) {
                         </div>
                     </div>
                     <div className="bottomHost">
-                        <button onClick={()=>{props.setShowModal(true)}} style={{'textDecoration': 'none', 'background': '0', 'border': 'hidden' }}>
+                        <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank' rel="noopener noreferrer">
+                        <button style={{'textDecoration': 'none', 'background': '0', 'border': 'hidden' }}>
                             <div className="profile">
                                 View Profile
                             </div>
                         </button>
-                        <button onClick={()=>{props.setShowModal(true)}} style={{'textDecoration': 'none', 'background': '0', 'border': 'hidden' }}>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank' rel="noopener noreferrer">
+                        <button style={{'textDecoration': 'none', 'background': '0', 'border': 'hidden' }}>
                             <div className="chatWithHost">
                                 Chat with Host
                             </div>
                         </button>
+                        </a>
                     </div>
                 </div>
             </div>
