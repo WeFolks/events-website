@@ -40,8 +40,7 @@ function RegistrationModal(props) {
   return (
     <div className="modal">
       <div className="modal-content">
-        <span className="close" onClick={onClose}>&times;</span>
-        <RegistrationForm />
+        <RegistrationForm closeModal={onClose}/>
       </div>
     </div>
   );

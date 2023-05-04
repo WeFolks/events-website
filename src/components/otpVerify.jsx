@@ -40,7 +40,7 @@ export default function OtpInput(props) {
     showBill ? (
       <BillingPage totalTicketPrice={totalTicketPrice} />
     ) : (<div className="otpInput">
-      <div className="otpBoxes">
+      <div className="otpBoxes" id='otpBox'>
         <input
           type="text"
           maxLength="1"
@@ -90,8 +90,13 @@ export default function OtpInput(props) {
           value={otp[5]}
         />
       </div>
+      <div className="resendOTP">
+        Didn't receive OTP? <button className="resendOTPButton">
+  Resend
+</button>
+      </div>
       <button className="verifyButton" onClick={handleVerify}>
-        Verify
+        Verify OTP
       </button>
     </div>)
   );
