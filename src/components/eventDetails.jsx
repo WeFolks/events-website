@@ -66,6 +66,17 @@ export default function EventDetails(props) {
                     </div>
                 </div>
             }
+            {
+                props.event.participantLimit!=null && props.event.participantLimit !==0 &&
+                <div className="description block" style={{textAlign: "start", display:'flex', justifyContent:'start'}}>
+                    <div className="topic" style={{width:'15vw'}}>Price: </div>
+                    <div className="participantLimit" style={{fontSize: '15px',
+                        fontFamily: 'font3',
+                        lineHeight: '18px',}}>
+                        Rs. 300/-
+                    </div>
+                </div>
+            }
 
             
             

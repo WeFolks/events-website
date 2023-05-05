@@ -31,6 +31,7 @@ export default function JoinEvent(props) {
         </button></a>
         <button onClick={handleJoinEventClick} style={{ textDecoration: 'none', width: '50%', background: 0, border: 'hidden' }}>
           <div className="joinEventButton">
+            <div className="price">Rs. 300/-<br></br></div>
             Book Now
           </div>
         </button>
