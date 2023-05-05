@@ -60,7 +60,7 @@ export default function EventDetails(props) {
                 <div className="description block" style={{textAlign: "start", display:'flex', justifyContent:'start'}}>
                     <div className="topic" style={{width:'40vw'}}>Participant Limit: </div>
                     <div className="participantLimit" style={{fontSize: '15px',
-    fontFamily: 'font3',
+    fontFamily: 'Poppins',
     lineHeight: '18px',}}>
                         {props.event.participantLimit > 300 ? "Open for All" : props.event.participantLimit}
                     </div>
@@ -71,7 +71,7 @@ export default function EventDetails(props) {
                 <div className="description block" style={{textAlign: "start", display:'flex', justifyContent:'start'}}>
                     <div className="topic" style={{width:'15vw'}}>Price: </div>
                     <div className="participantLimit" style={{fontSize: '15px',
-                        fontFamily: 'font3',
+                        fontFamily: 'Poppins',
                         lineHeight: '18px',}}>
                         Rs. 300/-
                     </div>

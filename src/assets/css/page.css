@@ -158,7 +158,8 @@ body {
 .descContent {
     padding-top: 10px;
     font-size: 15px;
-    font-family: 'font3';
+    font-family: 'Poppins';
+    font-weight: 300;
     line-height: 18px;
 }
 
@@ -404,7 +405,9 @@ body {
 }
 
 .price {
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Poppins';
 }
 
 .bottomHost {
