@@ -23,9 +23,15 @@ export default function JoinEvent(props) {
         <div className="botText">
           Explore and follow fun communities, events and activities around you on the app
         </div>
+        <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank' rel="noopener noreferrer">
+        <button style={{ textDecoration: 'none', background: 0, border: 'hidden' }}>
+          <div className="downloadApp">
+            Download App
+          </div>
+        </button></a>
         <button onClick={handleJoinEventClick} style={{ textDecoration: 'none', width: '50%', background: 0, border: 'hidden' }}>
           <div className="joinEventButton">
-            Join Event
+            Book Now
           </div>
         </button>
         {isModalOpen && <RegistrationModal onClose={handleModalClose} />}

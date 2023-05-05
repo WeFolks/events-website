@@ -40,8 +40,8 @@ export default function EventDateAndTime(props) {
                 <div className="date">
 
                     <div className="topic">
-                        <FontAwesomeIcon icon={["fas", "fa-calendar"]}/>
-                        Date
+                        <FontAwesomeIcon icon={["fas", "fa-calendar"]} style={{"marginRight":"10px"}}/>
+                         Date
                     </div>
                     <div style={{'height': '10px'}}></div>
                     <div className="dateContent">{props.date}</div>
@@ -49,8 +49,7 @@ export default function EventDateAndTime(props) {
                 </div>
                 <div className="time">
                     <div className="topic">
-                        <FontAwesomeIcon icon={["fas", "fa-clock"]} />
-                        {/*<i className="fa fa-clock-o"></i>*/}
+                        <FontAwesomeIcon icon={["fas", "fa-clock"]} style={{"marginRight":"7px"}}/>
                         Time
                     </div>
                     <div style={{'height': '10px'}}></div>
