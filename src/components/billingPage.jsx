@@ -5,6 +5,7 @@ import {ApolloClient, gql, InMemoryCache} from "@apollo/client";
 
 export default function BillingPage(props) {
     const {user, event, closeModal} = props;
+    console.log(event)
     const totalTicketPrice = event.paymentAmount;
     const rzpRef = useRef(null);
 
@@ -24,6 +25,9 @@ export default function BillingPage(props) {
               }
             }
         `;
+        orderId = orderId ?? '';
+        signature = signature ?? '';
+
 
         try {
             const result = await client.mutate({
@@ -32,13 +36,12 @@ export default function BillingPage(props) {
                     eventId,
                     paymentId,
                     orderId,
-                    signature
+                    signature,
                 }
             });
-            console.log(result);
             return result;
         } catch (error) {
-            console.error(error);
+            window.alert(error.toString());
         }
     };
 
@@ -67,10 +70,9 @@ export default function BillingPage(props) {
                     id: eventId
                 }
             });
-            console.log(result);
             return result;
         } catch (error) {
-            console.error(error);
+            window.alert(error.toString());
         }
     };
 
@@ -82,15 +84,16 @@ export default function BillingPage(props) {
         const signature = response.razorpay_signature;
 
         // Perform necessary actions, such as updating your database or showing a confirmation message
-        console.log("Payment successful!");
-        console.log(`Payment ID: ${paymentId}`);
-        console.log(`Order ID: ${orderId}`);
-        console.log(`Signature: ${signature}`);
+        // console.log("Payment successful!");
+        // console.log(`Payment ID: ${paymentId}`);
+        // console.log(`Order ID: ${orderId}`);
+        // console.log(`Signature: ${signature}`);
 
         // You may want to verify the payment signature on your server using the Razorpay Secret Key
         // Send a request to your server to verify the signature and update the database
         await addPurchaseDocument(event._id, paymentId, orderId, signature);
         await joinEvent(event._id);
+        window.alert("Event Joined. Check email for confirmation!");
         closeModal();
     };
 
@@ -113,6 +116,12 @@ export default function BillingPage(props) {
         theme: {
             color: "#F37254"
         },
+        modal: {
+            ondismiss: function () {
+                // Handle payment failure or modal dismissal here (e.g., show an error message)
+                window.alert("Payment failed!");
+            },
+        },
     };
 
     useEffect(() => {
@@ -133,7 +142,7 @@ export default function BillingPage(props) {
         } else {
             // Join Event Directly
             await joinEvent(event._id);
-            window.alert("Event Joined");
+            window.alert("Event Joined. Check email for confirmation!");
             closeModal();
         }
 

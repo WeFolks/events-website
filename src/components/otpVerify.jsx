@@ -7,12 +7,13 @@ import '../utils/firebaseConfig';
 
 
 export default function OtpInput(props) {
-    const {setUser, firstName, lastName, phoneNo, email, password} = props;
+    const {setUser, firstName, lastName, phoneNo, email, password, event, closeModal} = props;
     const [otp, setOtp] = useState(['', '', '', '', '', '']);
     const otpBoxes = useRef([]);
     const [confirmationResult, setConfirmationResult] = useState(null); // Add this state variable
     const auth = getAuth();
     const phoneNumber = props.phoneNo;
+    const [error, setError] = useState(null);
 
 
     const signUp = async (user) => {
@@ -22,10 +23,21 @@ export default function OtpInput(props) {
             const response = await axios.post(url, user);
 
             console.log('SignUp successful:', response.data);
+            const isParticipantPresent = event.participants.some(
+                (participant) => participant === response.data._id
+            );
+
+            if (!isParticipantPresent) {
+                setUser(response.data);
+            } else {
+                window.alert("User already registered");
+                closeModal();
+            }
             setUser(response.data);
         } catch (error) {
             if (error.response) {
-                window.alert('SignUp failed:', error.response.data);
+                // window.alert('SignUp failed:', error.response.data.error);
+                setError(error.response.data.error);
             } else {
                 window.alert('Error:', error.message);
             }
@@ -162,6 +174,7 @@ export default function OtpInput(props) {
                 Resend
             </button>
             </div>
+            <div>{error}</div>
             <button className="verifyButton" onClick={handleVerify}>
                 Verify OTP
             </button>

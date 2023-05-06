@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 
 export default function Register(props) {
-    const {setShowLogin, closeModal, setUser} = props
+    const {setShowLogin, closeModal, setUser, event} = props
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');
@@ -62,6 +62,7 @@ export default function Register(props) {
                                 email={email}
                                 password={password}
                                 setUser={setUser}
+                                event={event}
                             />
                         </>
                     )

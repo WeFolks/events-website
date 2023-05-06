@@ -5,27 +5,58 @@ import axios from "axios";
 
 
 export default function Login(props) {
-    const {setUser, closeModal, setShowLogin} = props;
+    const {setUser, closeModal, setShowLogin, event} = props;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const handleLogin = (event) => {
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const [error, setError] = useState(null);
+    const handleLogin = async (ev) => {
+        ev.preventDefault();
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        const data = {
+            email: email,
+            password: password
+        };
+        const url = process.env.REACT_APP_SERVER_URL + '/user/login';
+        try {
+            const res = await axios.post(url, data, {headers});
+            const isParticipantPresent = event.participants.some(
+                (participant) => participant === res.data._id
+            );
+
+            if (!isParticipantPresent) {
+                setUser(res.data);
+            } else {
+                window.alert("User already registered");
+                closeModal();
+            }
+        } catch (e) {
+            setError(e.response.data.error);
+        }
+    }
+
+    const handleForgotPassword = async event => {
         event.preventDefault();
         const headers = {
             'Content-Type': 'application/json'
         };
         const data = {
             email: 'r@f.com',
-            password: 'abc12345'
         };
-        const url = process.env.REACT_APP_SERVER_URL + '/user/login';
+        const url = process.env.REACT_APP_SERVER_URL + '/user/forgot_password';
         console.log("Here")
-        axios
-            .post(url, data, {headers})
-            .then(response => {
-                console.log(response.data);
-                setUser(response.data);
-            })
-            .catch(error => console.error(error));
+        try {
+            const res = await axios.post(url, data, {headers});
+            setError(res.data.message);
+            setShowForgotPassword(false);
+            console.log(res);
+        } catch (e) {
+            console.log(e);
+            setError(e);
+        }
+
     }
 
     return (
@@ -34,35 +65,59 @@ export default function Login(props) {
                 <FontAwesomeIcon className="topIcon" icon={faChevronLeft} onClick={closeModal}/>
             </div>
             <div className="parent">
-                <div className="dataDetails">
-                    We're excited to see you in our event!<br></br> Please login to register for event. <br></br>
-                </div>
-                <form onSubmit={handleLogin}>
-                    <div className="form-group">
-                        <input type="email" id="email" value={email}
-                               onChange={(e) => setEmail(e.target.value)}
-                               placeholder="Email Address"/>
-                    </div>
-                    <div className="form-group">
-                        <input type="password" id="password" value={password}
-                               onChange={(e) => setPassword(e.target.value)}
-                               placeholder="Password"/>
-                    </div>
-                    <div className="button-container">
-                        <button type="submit">Login</button>
-                    </div>
-                    {/*<div>Can't remember your password?<a>click here</a></div>*/}
-                    {/*<div>Not a user?<a onClick={() => setShowLogin(false)}>Register here</a></div>*/}
-                    <div className='privacy'>
-                        By agreeing to our <a
-                        href="https://github.com/WeFolks/FolksPrivacy/blob/main/privacy-policy.md">
-                        Privacy
-                        Policy</a>, you are helping us maintain a secure and trustworthy
-                        platform for all
-                        our
-                        users.
-                    </div>
-                </form>
+                {
+                    showForgotPassword ?
+                        <>
+                            <form onSubmit={handleForgotPassword}>
+                                <div className="form-group">
+                                    <input type="email" id="email" value={email}
+                                           onChange={(e) => setEmail(e.target.value)}
+                                           placeholder="Email Address"/>
+                                </div>
+                                <div className="button-container">
+                                    <button type="submit">Send Password</button>
+                                </div>
+                            </form>
+                        </>
+                        :
+                        <>
+                            <div className="dataDetails">
+                                We're excited to see you in our event!<br></br> Please login to register for
+                                event. <br></br>
+                            </div>
+                            <form onSubmit={handleLogin}>
+                                <div className="form-group">
+                                    <input type="email" id="email" value={email}
+                                           onChange={(e) => setEmail(e.target.value)}
+                                           placeholder="Email Address"/>
+                                </div>
+                                <div className="form-group">
+                                    <input type="password" id="password" value={password}
+                                           onChange={(e) => setPassword(e.target.value)}
+                                           placeholder="Password"/>
+                                </div>
+                                <div>{error}</div>
+                                <div className="button-container">
+                                    <button type="submit">Login</button>
+                                </div>
+                                <div>Can't remember your password?
+                                    <a onClick={() => setShowForgotPassword(true)}>
+                                        click here
+                                    </a>
+                                </div>
+                                <div>Not a user?<a onClick={() => setShowLogin(false)}>Register here</a></div>
+                                {/*<div className='privacy'>*/}
+                                {/*    By agreeing to our <a*/}
+                                {/*    href="https://github.com/WeFolks/FolksPrivacy/blob/main/privacy-policy.md">*/}
+                                {/*    Privacy*/}
+                                {/*    Policy</a>, you are helping us maintain a secure and trustworthy*/}
+                                {/*    platform for all*/}
+                                {/*    our*/}
+                                {/*    users.*/}
+                                {/*</div>*/}
+                            </form>
+                        </>
+                }
             </div>
         </>
     )

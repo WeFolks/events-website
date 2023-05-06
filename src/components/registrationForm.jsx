@@ -27,12 +27,14 @@ const RegistrationForm = ({isModalOpen = false, closeModal, event}) => {
                                     setUser={setUser}
                                     setShowLogin={setShowLogin}
                                     closeModal={closeModal}
+                                    event={event}
                                 />
                                 :
                                 <Register
                                     setShowLogin={setShowLogin}
                                     closeModal={closeModal}
                                     setUser={setUser}
+                                    event={event}
                                 />
                         )
                 }
