@@ -1,13 +1,14 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import '../assets/css/billingPage.css';
 import axios from "axios";
 import {ApolloClient, gql, InMemoryCache} from "@apollo/client";
 
 export default function BillingPage(props) {
     const {user, event, closeModal} = props;
-    console.log(event)
     const totalTicketPrice = event.paymentAmount;
     const rzpRef = useRef(null);
+    const [orderId, setOrderId] = useState(null);
+
 
     const addPurchaseDocument = async (eventId, paymentId, orderId, signature) => {
         const client = new ApolloClient({
@@ -42,6 +43,29 @@ export default function BillingPage(props) {
             return result;
         } catch (error) {
             window.alert(error.toString());
+        }
+    };
+
+    const initiateOrder = async () => {
+        const orderReq = {
+            amount: totalTicketPrice * 100, // in paise
+        };
+
+        try {
+            const response = await axios.post(
+                process.env.REACT_APP_SERVER_URL + 'razorpay/initiate_order', // Replace with your server URL
+                orderReq
+            );
+
+            if (response.data && response.data.orderId) {
+                setOrderId(response.data.orderId);
+                return true;
+            } else {
+                throw new Error('Error getting order ID from server');
+            }
+        } catch (error) {
+            window.alert('Error initiating order: ' + error.message);
+            return false;
         }
     };
 
@@ -122,6 +146,7 @@ export default function BillingPage(props) {
                 window.alert("Payment failed!");
             },
         },
+        order_id: orderId,
     };
 
     useEffect(() => {
@@ -136,16 +161,22 @@ export default function BillingPage(props) {
 
     const handlePayClick = async () => {
         if (event.isPaid) {
-            if (rzpRef.current) {
-                rzpRef.current.open();
+            const orderInitiated = await initiateOrder();
+
+            if (orderInitiated) {
+                options.order_id = orderId;
+
+                if (rzpRef.current) {
+                    rzpRef.current.update(options);
+                    rzpRef.current.open();
+                }
             }
         } else {
             // Join Event Directly
             await joinEvent(event._id);
-            window.alert("Event Joined. Check email for confirmation!");
+            window.alert('Event Joined. Check email for confirmation!');
             closeModal();
         }
-
     };
 
     return (
