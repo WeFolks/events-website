@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import '../assets/css/page.css';
 import '../assets/css/reset.css';
 import RegistrationForm from "./registrationForm";
 
 export default function JoinEvent(props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleJoinEventClick = () => {
-    setIsModalOpen(true);
-  }
+    const handleJoinEventClick = () => {
+        setIsModalOpen(true);
+    }
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  }
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    }
 
   return (
     <>
@@ -35,20 +35,20 @@ export default function JoinEvent(props) {
             Book Now
           </div>
         </button>
-        {isModalOpen && <RegistrationModal onClose={handleModalClose} />}
+        {isModalOpen && <RegistrationModal onClose={handleModalClose} event={props.event} />}
       </div>
     </>
   )
 }
 
 function RegistrationModal(props) {
-  const { onClose } = props;
+    const {onClose, event} = props;
 
-  return (
-    <div className="modal">
-      <div className="modal-content">
-        <RegistrationForm closeModal={onClose}/>
-      </div>
-    </div>
-  );
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                <RegistrationForm closeModal={onClose} event={event}/>
+            </div>
+        </div>
+    );
 }

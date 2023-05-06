@@ -28,7 +28,7 @@ export default function EventsBox() {
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
-            const url = "https://oq9gpqc3n6.execute-api.ap-south-1.amazonaws.com/prod";//process.env.REACT_APP_SERVER_URL;
+            const url = process.env.REACT_APP_SERVER_URL;
             const response = await fetch(url + "/event/" + id);
             const responseJson = (
                 ({
@@ -83,7 +83,7 @@ export default function EventsBox() {
                             showModal={showPopup}
                             setShowModal={setShowPopup}
                         />
-                        <JoinEvent showModal={showPopup} setShowModal={setShowPopup}/>
+                        <JoinEvent showModal={showPopup} setShowModal={setShowPopup} event={event}/>
                     </div>
                 </div>
             </>

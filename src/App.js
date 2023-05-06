@@ -9,7 +9,6 @@ function App() {
   return (
     <div className="App">
         <Header/>
-        {/*<EventsBox />*/}
         <Routes>
             <Route exact path="/:id" element={ <EventsBox/> } />
         </Routes>
