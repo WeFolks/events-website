@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import OtpInput from "./otpVerify";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
+import EventsBox from "./eventsBox";
 
 export default function Register(props) {
     const {setShowLogin, closeModal, setUser, event} = props
@@ -28,6 +29,7 @@ export default function Register(props) {
     }
 
     const handleSubmit = (e) => {
+        
         e.preventDefault();
         // Validate the form inputs
         if (!fullName || !email || !mobileNumber || !password) {
@@ -96,12 +98,15 @@ export default function Register(props) {
                                            onChange={(e) => setPassword(e.target.value)}
                                            placeholder="Password"/>
                                 </div>
+                                
                                 <div className="button-container">
                                     <button type="submit">Proceed</button>
                                 </div>
-                                <div>Already a user?<a onClick={() => {
+                                
+                                <div style={{marginBottom:'10px'}}>Or</div>
+                                <div style={{marginBottom:'10px'}}>Already a user? <a onClick={() => {
                                     setShowLogin(true)
-                                }}>Login</a></div>
+                                }} style={{textDecoration:'underline'}}>Login</a></div>
                                 <div className='privacy'>
                                     By agreeing to our <a
                                     href=

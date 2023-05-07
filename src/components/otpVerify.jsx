@@ -118,6 +118,7 @@ export default function OtpInput(props) {
 
     return (
         <div className="otpInput">
+        <div style={{marginBottom:'20px', fontSize:'15px', color:'firebrick'}}>{error}</div>
             <div className="otpBoxes" id='otpBox'>
                 <input
                     type="text"
@@ -174,7 +175,6 @@ export default function OtpInput(props) {
                 Resend
             </button>
             </div>
-            <div>{error}</div>
             <button className="verifyButton" onClick={handleVerify}>
                 Verify OTP
             </button>

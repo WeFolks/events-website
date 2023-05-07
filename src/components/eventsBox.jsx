@@ -24,7 +24,6 @@ export default function EventsBox() {
     const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
     const [showNotFound, setShowNotFound] = useState(false);
-    console.log(process.env.REACT_APP_SERVER_URL);
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
@@ -70,8 +69,18 @@ export default function EventsBox() {
             :
             <>
 
-                <h1>Fetching Event</h1> :
                 <div className={'mainPage'}>
+                    {(true)&& <div className="confirmBox" style={{fontFamily:'Poppins', border:'1px solid black', margin:'10px', padding:'15px 20px', borderRadius:'20px', boxShadow: '0 0 15px rgba(0, 0, 0, 0.7)'}}> 
+                        <div className="confirmText"style={{fontSize:'18px', marginBottom:'10px', color:'#ff7958'}}>Congratulations!! Your booking is confirmed and sent to your email</div>
+                        <div className="appInfo" style={{textAlign:'start', fontSize:'13px'}}>
+                        <div className="info" style={{textAlign:'start', fontSize:'13px', display:'inline', fontWeight:'600'}}>Download our app NOW to- <br /><br />
+                            1. Discover exciting events</div> in your locality<br /><br />
+                            <div className="info" style={{textAlign:'start', fontSize:'13px', display:'inline', fontWeight:'600'}}>2. Stay connected</div> with your favorite communities and people<br /><br />
+                            <div className="info" style={{textAlign:'start', fontSize:'13px', display:'inline', fontWeight:'600'}}>3. Get updates</div> for highlight events<br /><br />
+                            <div className="info" style={{textAlign:'start', fontSize:'13px', display:'inline', fontWeight:'600'}}>4. Track your activity</div> and share it with the world<br /><br />
+                            <div className="info" style={{textAlign:'start', fontSize:'13px', display:'inline', fontWeight:'600'}}>5. Get exclusive discounts</div> and more by downloading our app!
+                        </div>
+                    </div> }
                     <div className={"initialData"}>
                         <EventImage src={event.eventPhoto}/>
                         

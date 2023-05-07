@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import {useEffect} from 'react';
 import manImage from './man_profile.png';
 
@@ -14,6 +14,7 @@ fontawesome.library.add(faUsers, faMapMarker, faChevronCircleRight)
 export default function EventDetails(props) {
     const google = window.google;
     console.log(props.event.participantPhotos);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         const map = new google.maps.Map(document.getElementById('map'), {
@@ -120,11 +121,20 @@ export default function EventDetails(props) {
                      style={{'textDecoration': 'none', 'color': 'black', 'background': '0', 'border': 'hidden'}}>
                     <div className="picsArray">
                         <div className="listPics">
-                            {props.event.participantPhotos?.map(pic => <img
-                                src={(props.event.participantPhotos[0] === null || props.event.participantPhotos[0] === '') ? manImage : pic}
-                                key={pic} alt={""}/>)}
+                        {props.event.participantPhotos?.map(pic => (
+                            <React.Fragment key={pic}>
+                            {(!pic || loaded) && (
+                                <img
+                                src={pic || manImage}
+                                alt=""
+                                onLoad={() => setLoaded(true)}
+                                />
+                            )}
+                            </React.Fragment>
+                        ))}
                         </div>
-
+                        <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank'
+                   rel="noopener noreferrer">
                         <div className="viewAll" style={{
                             'margin': '0 10px',
                             'fontStyle': 'italic',
@@ -132,6 +142,7 @@ export default function EventDetails(props) {
                         }}>
                             View All {props.event.participantPhotos?.length} Participants
                         </div>
+                        </a>
                         <FontAwesomeIcon icon={faChevronCircleRight}/>
                     </div>
                 </div>
@@ -146,7 +157,7 @@ export default function EventDetails(props) {
                                 alt={""}/>
                         </div>
                     </div>
-                    <div className="bottomHost">
+                    <div className="bottomHost" style={{display:'none'}}>
                         <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank'
                            rel="noopener noreferrer">
                             <button style={{'textDecoration': 'none', 'background': '0', 'border': 'hidden'}}>

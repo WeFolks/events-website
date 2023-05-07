@@ -43,7 +43,7 @@ export default function Login(props) {
             'Content-Type': 'application/json'
         };
         const data = {
-            email: 'r@f.com',
+            email: email,
         };
         const url = process.env.REACT_APP_SERVER_URL + '/user/forgot_password';
         console.log("Here")
@@ -63,6 +63,7 @@ export default function Login(props) {
         <>
             <div className="topBar">
                 <FontAwesomeIcon className="topIcon" icon={faChevronLeft} onClick={closeModal}/>
+                <h2>{(showForgotPassword) ? 'Forgot Password' : 'Login'}</h2>
             </div>
             <div className="parent">
                 {
@@ -70,22 +71,21 @@ export default function Login(props) {
                         <>
                             <form onSubmit={handleForgotPassword}>
                                 <div className="form-group">
+                                <div className="dataDetails">
+                                You'll receive password on your registered mail.
+                            </div>
                                     <input type="email" id="email" value={email}
                                            onChange={(e) => setEmail(e.target.value)}
-                                           placeholder="Email Address"/>
+                                           placeholder="Email Address" style={{marginTop:'20px'}}/>
                                 </div>
                                 <div className="button-container">
-                                    <button type="submit">Send Password</button>
+                                    <button type="submit" style={{textTransform:'none'}}>Submit</button>
                                 </div>
                             </form>
                         </>
                         :
                         <>
-                            <div className="dataDetails">
-                                We're excited to see you in our event!<br></br> Please login to register for
-                                event. <br></br>
-                            </div>
-                            <form onSubmit={handleLogin}>
+                            <form onSubmit={handleLogin} style={{marginTop:'20px'}}>
                                 <div className="form-group">
                                     <input type="email" id="email" value={email}
                                            onChange={(e) => setEmail(e.target.value)}
@@ -96,16 +96,16 @@ export default function Login(props) {
                                            onChange={(e) => setPassword(e.target.value)}
                                            placeholder="Password"/>
                                 </div>
-                                <div>{error}</div>
+                                <div style={{margin:'0 20px 20px 20px', fontSize:'15px', color:'firebrick'}}>{error}</div>
                                 <div className="button-container">
                                     <button type="submit">Login</button>
                                 </div>
-                                <div>Can't remember your password?
-                                    <a onClick={() => setShowForgotPassword(true)}>
-                                        click here
+                                <div style={{margin:'10px 20px 20px 20px'}}>
+                                    <a onClick={() => setShowForgotPassword(true)} style={{textDecoration:'underline', marginLeft:'7px'}}>
+                                    Forgot your password? 
                                     </a>
                                 </div>
-                                <div>Not a user?<a onClick={() => setShowLogin(false)}>Register here</a></div>
+                                {/* <div>Not a user?<a onClick={() => setShowLogin(false)}>Register here</a></div> */}
                                 {/*<div className='privacy'>*/}
                                 {/*    By agreeing to our <a*/}
                                 {/*    href="https://github.com/WeFolks/FolksPrivacy/blob/main/privacy-policy.md">*/}

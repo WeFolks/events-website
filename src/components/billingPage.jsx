@@ -8,6 +8,7 @@ export default function BillingPage(props) {
     const totalTicketPrice = event.paymentAmount;
     const rzpRef = useRef(null);
     const [orderId, setOrderId] = useState(null);
+    console.log(event.name)
 
 
     const addPurchaseDocument = async (eventId, paymentId, orderId, signature) => {
@@ -53,7 +54,7 @@ export default function BillingPage(props) {
 
         try {
             const response = await axios.post(
-                process.env.REACT_APP_SERVER_URL + 'razorpay/initiate_order', // Replace with your server URL
+                process.env.REACT_APP_SERVER_URL + '/razorpay/initiate_order', // Replace with your server URL
                 orderReq
             );
 
@@ -182,13 +183,19 @@ export default function BillingPage(props) {
     return (
         <div className="billingPage">
             <h1>Summary</h1>
+            <div className="detailsDispurse" style={{textAlign:'start', marginBottom:'20px', fontSize:'14px', fontFamily:'Poppins'}}>
+                <div className="head"style={{ fontSize:'14px', display:'inline', fontWeight:'600'}}>Event: </div>{event.name}<br></br><br></br>
+                <div className="head"style={{ fontSize:'14px', display:'inline', fontWeight:'600'}}>Event Date:</div> {event.date}<br></br><br></br>
+                <div className="head"style={{ fontSize:'14px', display:'inline', fontWeight:'600'}}>Participant: </div>{user.firstName+" "+user.lastName}<br></br><br></br>
+                <div className="head"style={{ fontSize:'14px', display:'inline', fontWeight:'600'}}>Email:</div> {user.email}
+            </div>
             <div className="summaryBox">
                 <div className="item">
                     <span className="label">Ticket Price:</span>
                     <span className="value">₹{event.isPaid ? event.paymentAmount : 0}</span>
                 </div>
                 <div className="item">
-                    <span className="label">Total Price:</span>
+                    <span className="label">Total Price:</span><div style={{fontSize:'10px', marginBottom:'10px'}}>(including convenience fees and tax)</div>
                     <span className="value">₹{event.isPaid ? 1.02 * event.paymentAmount : 0}</span>
                 </div>
             </div>
