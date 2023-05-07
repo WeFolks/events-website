@@ -43,7 +43,7 @@ export default function Login(props) {
             'Content-Type': 'application/json'
         };
         const data = {
-            email: 'r@f.com',
+            email: email,
         };
         const url = process.env.REACT_APP_SERVER_URL + '/user/forgot_password';
         console.log("Here")
