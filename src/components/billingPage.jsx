@@ -168,14 +168,14 @@ export default function BillingPage(props) {
                 options.order_id = orderId;
 
                 if (rzpRef.current) {
-                    rzpRef.current.update(options);
+                    rzpRef.current = new window.Razorpay(options);
                     rzpRef.current.open();
                 }
             }
         } else {
             // Join Event Directly
             await joinEvent(event._id);
-            window.alert('Event Joined. Check email for confirmation!');
+            window.alert("Event Joined. Check email for confirmation!");
             closeModal();
         }
     };
