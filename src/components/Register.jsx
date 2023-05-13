@@ -29,7 +29,7 @@ export default function Register(props) {
     }
 
     const handleSubmit = (e) => {
-        
+
         e.preventDefault();
         // Validate the form inputs
         if (!fullName || !email || !mobileNumber || !password) {
@@ -98,15 +98,15 @@ export default function Register(props) {
                                            onChange={(e) => setPassword(e.target.value)}
                                            placeholder="Password"/>
                                 </div>
-                                
+
                                 <div className="button-container">
                                     <button type="submit">Proceed</button>
                                 </div>
-                                
-                                <div style={{marginBottom:'10px'}}>Or</div>
-                                <div style={{marginBottom:'10px'}}>Already a user? <a onClick={() => {
+
+                                <div style={{marginBottom: '10px'}}>Or</div>
+                                <div style={{marginBottom: '10px'}}>Already a user? <a href={"#"} onClick={() => {
                                     setShowLogin(true)
-                                }} style={{textDecoration:'underline'}}>Login</a></div>
+                                }} style={{textDecoration: 'underline'}}>Login</a></div>
                                 <div className='privacy'>
                                     By agreeing to our <a
                                     href=

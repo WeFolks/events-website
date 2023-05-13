@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 export default function Login(props) {
-    const {setUser, closeModal, setShowLogin, event} = props;
+    const {setUser, closeModal, event} = props;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -71,21 +71,21 @@ export default function Login(props) {
                         <>
                             <form onSubmit={handleForgotPassword}>
                                 <div className="form-group">
-                                <div className="dataDetails">
-                                You'll receive password on your registered mail.
-                            </div>
+                                    <div className="dataDetails">
+                                        You'll receive password on your registered mail.
+                                    </div>
                                     <input type="email" id="email" value={email}
                                            onChange={(e) => setEmail(e.target.value)}
-                                           placeholder="Email Address" style={{marginTop:'20px'}}/>
+                                           placeholder="Email Address" style={{marginTop: '20px'}}/>
                                 </div>
                                 <div className="button-container">
-                                    <button type="submit" style={{textTransform:'none'}}>Submit</button>
+                                    <button type="submit" style={{textTransform: 'none'}}>Submit</button>
                                 </div>
                             </form>
                         </>
                         :
                         <>
-                            <form onSubmit={handleLogin} style={{marginTop:'20px'}}>
+                            <form onSubmit={handleLogin} style={{marginTop: '20px'}}>
                                 <div className="form-group">
                                     <input type="email" id="email" value={email}
                                            onChange={(e) => setEmail(e.target.value)}
@@ -96,16 +96,21 @@ export default function Login(props) {
                                            onChange={(e) => setPassword(e.target.value)}
                                            placeholder="Password"/>
                                 </div>
-                                <div style={{margin:'0 20px 20px 20px', fontSize:'15px', color:'firebrick'}}>{error}</div>
+                                <div style={{
+                                    margin: '0 20px 20px 20px',
+                                    fontSize: '15px',
+                                    color: 'firebrick'
+                                }}>{error}</div>
                                 <div className="button-container">
                                     <button type="submit">Login</button>
                                 </div>
-                                <div style={{margin:'10px 20px 20px 20px'}}>
-                                    <a onClick={() => setShowForgotPassword(true)} style={{textDecoration:'underline', marginLeft:'7px'}}>
-                                    Forgot your password? 
+                                <div style={{margin: '10px 20px 20px 20px'}}>
+                                    <a href="#" onClick={() => setShowForgotPassword(true)}
+                                       style={{textDecoration: 'underline', marginLeft: '7px'}}>
+                                        Forgot your password?
                                     </a>
                                 </div>
-                                {/* <div>Not a user?<a onClick={() => setShowLogin(false)}>Register here</a></div> */}
+                                {/* <sdiv>Not a user?<a onClick={() => setShowLogin(false)}>Register here</a></div> */}
                                 {/*<div className='privacy'>*/}
                                 {/*    By agreeing to our <a*/}
                                 {/*    href="https://github.com/WeFolks/FolksPrivacy/blob/main/privacy-policy.md">*/}
