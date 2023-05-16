@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import OtpInput from "./otpVerify";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
-import EventsBox from "./eventsBox";
 
 export default function Register(props) {
     const {setShowLogin, closeModal, setUser, event} = props
@@ -29,7 +28,6 @@ export default function Register(props) {
     }
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
         // Validate the form inputs
         if (!fullName || !email || !mobileNumber || !password) {
@@ -98,7 +96,6 @@ export default function Register(props) {
                                            onChange={(e) => setPassword(e.target.value)}
                                            placeholder="Password"/>
                                 </div>
-
                                 <div className="button-container">
                                     <button type="submit">Proceed</button>
                                 </div>
@@ -110,9 +107,7 @@ export default function Register(props) {
                                 <div className='privacy'>
                                     By agreeing to our <a
                                     href=
-                                        "
-                                                    https://github.com/WeFolks/FolksPrivacy/blob/main/privacy-policy.md
-                                                    ">Privacy
+                                        "https://github.com/WeFolks/FolksPrivacy/blob/main/privacy-policy.md">Privacy
                                     Policy</a>, you are helping us maintain a secure and trustworthy
                                     platform for all
                                     our
