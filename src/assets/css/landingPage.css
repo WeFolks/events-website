@@ -170,12 +170,13 @@ body {
 .features h2 {
     font-family: 'font7';
     font-size: 1.3vw;
+    margin: 7vh 0 2vh 1vh;
 }
 
 .features li {
     font-size: 1.2vw;
     font-family: font6;
-    margin-bottom: 0.8vh;
+    margin-bottom: 2vh;
 }
 
 #logName {
@@ -192,6 +193,7 @@ body {
     display: flex;
     flex-direction: row;
     margin-top: 70px;
+    height: 65vh;
 }
 
 .left-col {
@@ -397,6 +399,45 @@ body {
         flex-direction: column;
         align-items: center;
         padding: 40px 0;
+    }
+
+    .start h1 {
+        font-size: 5vh;
+    }
+
+    .start p {
+        font-size: 3vh;
+        margin-bottom: 5vh;
+    }
+
+    .features h2 {
+        font-size: 2.2vh;
+        margin: 0 1vh 2vh 2vh;
+    }
+
+    .features ul {
+        list-style-type: disc;
+    }
+
+    .features li {
+        font-size: 2vh;
+        margin: 3vh;
+    }
+
+    .left-col {
+        width: 0;
+    }
+
+    .left-col img {
+        display: none;
+    }
+
+    .right-col {
+        width: 100%;
+    }
+
+    .col h4 {
+        font-size: 2vh;
     }
 
     .main-text {
