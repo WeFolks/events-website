@@ -1,0 +1,126 @@
+.registration-form {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    position: fixed;
+    width: 90vw;
+    top: 15vh;
+    left: 5vw;
+    border: 2px solid #ff7958;
+}
+
+.backgroundOpaque {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.topBar {
+    background-color: #ff7958;
+    color: white;
+    padding: 0 20px;
+    border-radius: 5px 5px 0 0;
+    height: 10vh;
+}
+
+.topIcon {
+    float: left;
+    /* line-height: 24px; */
+    position: relative;
+    height: 14px;
+    top: 25px;
+    left: -7px;
+}
+
+.registration-form h2 {
+    text-align: start;
+    font-size: 21px;
+    position: relative;
+    /* left: -10px; */
+    padding: 20px 20px;
+    top: 2px;
+    color: white;
+}
+
+.registration-form .form-group {
+    margin-bottom: 20px;
+}
+
+.registration-form label {
+    display: block;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+#full-name {
+    margin-top: 20px;
+}
+
+.registration-form input[type="text"],
+.registration-form input[type="email"],
+.registration-form input[type="tel"],
+.registration-form input[type="password"] {
+    margin-left: 7%;
+    display: block;
+    width: 80%;
+    border-radius: 10px 10px 0 0;
+    border: none;
+    background-color: #fff !important;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    color: #555;
+    padding: 10px;
+}
+
+.dataDetails {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.button-container {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+.registration-form input[type="text"]:focus,
+.registration-form input[type="email"]:focus,
+.registration-form input[type="tel"]:focus,
+.registration-form input[type="password"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.privacy {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.registration-form button[type="submit"] {
+    display: block;
+    /* width: 100%; */
+    padding: 10px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+    justify-content: center;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.registration-form button[type="submit"]:hover {
+    background-color: #555;
+}
+
+.modal-content .close {
+    float: right;
+    font-size: 25px;
+}

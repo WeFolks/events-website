@@ -1,0 +1,82 @@
+/* otpInput.css */
+
+.otpInput {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #ffffff, #f8f8f8);
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    max-width: 35rem;
+    margin: 20px auto 0 auto;
+}
+
+.resendOTP {
+    margin-bottom: 10px;
+    line-height: 26px;
+}
+
+.resendOTPButton {
+    font-size: 10px !important;
+    float: right;
+    margin-left: 20px !important;
+    background-color: firebrick !important;
+}
+
+#otpBox input {
+    display: inline !important;
+    margin-left: 0;
+    width: 30px !important;
+    height: 40px;
+    font-size: 2rem !important;
+    text-align: center;
+    background: transparent;
+    border: 2px solid #bdbdbd !important;
+    border-radius: 0.5rem !important;
+    transition: border-color 0.3s ease-in-out;
+    margin-right: 7px;
+    padding: 0 !important;
+}
+
+
+.otpInput input:focus {
+    outline: none;
+    border-color: #4e9af1;
+}
+
+.otpInput button {
+    display: block;
+    /* width: 100%; */
+    padding: 10px;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+    justify-content: center;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.otpInput button:hover {
+    background-color: #555;
+}
+
+@media screen and (max-width: 768px) {
+    .otpInput {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .otpInput input {
+        margin-bottom: 1.5rem;
+    }
+
+    .otpInput button {
+        margin-left: 0;
+    }
+}

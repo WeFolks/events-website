@@ -6,7 +6,7 @@ import '../assets/css/reset.css';
 export default function EventImage(props) {
     return (
         <>
-            <div className="picture">
+            <div className="picture" style={{width:"90%"}}>
                 <img src={props.src}  alt={''}/>
             </div>
         </>

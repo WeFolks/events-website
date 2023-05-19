@@ -10,48 +10,22 @@ import {useParams} from "react-router-dom";
 import NotFound from "../assets/images/not-found.jpg";
 import styled from "styled-components";
 import Loader from "./loader";
+import useGlobalState from "../hooks/useGlobalState";
 
-// const eventName = "Graffiti wall";
-// const description  = "Hello All welcome to my event Football match. \n\n It is going to be a begineer match 10v0";
-// const address  = "Indirapuram Habitat Center, Ghaziabad assf assffg dswssh rshs dtyj tyjt";
-// const eventPicture = "https://wefolks.s3.ap-south-1.amazonaws.com/63c32aa950c386c46e1733a7.jpg"
-// const date = "23/03/2023";
-// const time = "10:00 AM";
-// const destCoordinates = "28.6478812,77.3764113";
-// const eventType = 0;
-// const picList = ["https://wefolks.s3.ap-south-1.amazonaws.com/63c919fac7083ddf61a9699f.jpg","https://wefolks.s3.ap-south-1.amazonaws.com/63c919fac7083ddf61a9699f.jpg","https://wefolks.s3.ap-south-1.amazonaws.com/63c919fac7083ddf61a9699f.jpg","https://wefolks.s3.ap-south-1.amazonaws.com/63c919fac7083ddf61a9699f.jpg","https://wefolks.s3.ap-south-1.amazonaws.com/63c919fac7083ddf61a9699f.jpg","https://wefolks.s3.ap-south-1.amazonaws.com/63c919fac7083ddf61a9699f.jpg"]
-// const hostPic = "https://wefolks.s3.ap-south-1.amazonaws.com/63c919fac7083ddf61a9699f.jpg"
-
-// {
-//     "eventPhoto": "https://wefolks.s3.ap-south-1.amazonaws.com/63c8da93c7083dd284449a24.jpg",
-//     "date": "23/3/2023",
-//     "time": "10:3",
-//     "name": "Grafitti",
-//     "description": "dndm",
-//     "address": "Shriram Samruddhi Apartments, Varthur Road, Silver Springs Layout, Munnekollal, Bengaluru, Karnataka, India",
-//     "type": 0,
-//     "participantPhotos": [
-//     "https://lh3.googleusercontent.com/a/AEdFTp6PmZnHKMfcTAKtxyifypWBvRuExzZG4gMiw_NW=s96-c"
-// ],
-//     "hostName": "Mudit Shivendra",
-//     "hostProfilePhoto": "https://lh3.googleusercontent.com/a/AEdFTp6PmZnHKMfcTAKtxyifypWBvRuExzZG4gMiw_NW=s96-c",
-//     "locationLatitude": 12.9530319,
-//     "locationLongitude": 77.7166786
-// }
 const StyledNotFound = styled.img`
-      width: 50%;
-      margin-top: 30%;
-      @media (max-width: 456px) {
-        width: 100%;
-      }
-    `;
+  width: 50%;
+  margin-top: 30%;
+  @media (max-width: 456px) {
+    width: 100%;
+  }
+`;
 export default function EventsBox() {
+    const {eventRegistrationConfirmed} = useGlobalState();
     const [showPopup, setShowPopup] = useState(false);
     const [event, setEvent] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const { id } = useParams();
+    const {id} = useParams();
     const [showNotFound, setShowNotFound] = useState(false);
-
     useEffect(() => {
         async function fetchData() {
             setIsLoading(true);
@@ -67,6 +41,7 @@ export default function EventsBox() {
 
             try {
                 responseJson.result = await response.json();
+                console.log(responseJson.result);
             } catch (ex) {
                 responseJson.ok = false;
                 responseJson.result = null;
@@ -81,11 +56,12 @@ export default function EventsBox() {
             }
             setIsLoading(false);
         }
+
         fetchData();
     }, [id]);
 
     if (isLoading) {
-        return <Loader />; // Show loader while data is being fetched
+        return <Loader/>; // Show loader while data is being fetched
     }
 
     return (
@@ -96,19 +72,63 @@ export default function EventsBox() {
             :
             <>
 
-                <h1>Fetching Event</h1> :
                 <div className={'mainPage'}>
+                    {(eventRegistrationConfirmed) && <div className="confirmBox" style={{
+                        fontFamily: 'Poppins',
+                        border: '1px solid black',
+                        margin: '10px',
+                        padding: '15px 20px',
+                        borderRadius: '20px',
+                        boxShadow: '0 0 15px rgba(0, 0, 0, 0.7)'
+                    }}>
+                        <div className="confirmText"
+                             style={{fontSize: '18px', marginBottom: '10px', color: '#ff7958'}}>Congratulations!! Your
+                            booking is confirmed and sent to your email
+                        </div>
+                        <div className="appInfo" style={{textAlign: 'start', fontSize: '13px'}}>
+                            <div className="info" style={{
+                                textAlign: 'start',
+                                fontSize: '13px',
+                                display: 'inline',
+                                fontWeight: '600'
+                            }}>Download our app NOW to- <br/><br/>
+                                1. Discover exciting events
+                            </div>
+                            in your locality<br/><br/>
+                            <div className="info"
+                                 style={{textAlign: 'start', fontSize: '13px', display: 'inline', fontWeight: '600'}}>2.
+                                Stay connected
+                            </div>
+                            with your favorite communities and people<br/><br/>
+                            <div className="info"
+                                 style={{textAlign: 'start', fontSize: '13px', display: 'inline', fontWeight: '600'}}>3.
+                                Get updates
+                            </div>
+                            for highlight events<br/><br/>
+                            <div className="info"
+                                 style={{textAlign: 'start', fontSize: '13px', display: 'inline', fontWeight: '600'}}>4.
+                                Track your activity
+                            </div>
+                            and share it with the world<br/><br/>
+                            <div className="info"
+                                 style={{textAlign: 'start', fontSize: '13px', display: 'inline', fontWeight: '600'}}>5.
+                                Get exclusive discounts
+                            </div>
+                            and more by downloading our app!
+                        </div>
+                    </div>}
                     <div className={"initialData"}>
                         <EventImage src={event.eventPhoto}/>
-                        <EventDateAndTime date={event.date} time={event.time}/>
+
                     </div>
                     <div className={"rest"}>
+                        <EventDateAndTime date={event.date} time={event.time}/>
                         <EventDetails
                             event={event}
                             showModal={showPopup}
                             setShowModal={setShowPopup}
                         />
-                        <JoinEvent showModal={showPopup} setShowModal={setShowPopup}/>
+                        <JoinEvent showModal={showPopup} setShowModal={setShowPopup} event={event}/>
                     </div>
                 </div>
             </>
