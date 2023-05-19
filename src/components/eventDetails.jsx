@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, {useState} from 'react';
 import {useEffect} from 'react';
 import manImage from './man_profile.png';
 
@@ -15,6 +15,11 @@ export default function EventDetails(props) {
     const google = window.google;
     console.log(props.event.participantPhotos);
     const [loaded, setLoaded] = useState(false);
+    const [hostPhotoLoaded, setHostPhotoLoaded] = useState(true);
+
+    const handleImageLoadError = () => {
+        setHostPhotoLoaded(false);
+    }
 
     useEffect(() => {
         const map = new google.maps.Map(document.getElementById('map'), {
@@ -121,27 +126,27 @@ export default function EventDetails(props) {
                      style={{'textDecoration': 'none', 'color': 'black', 'background': '0', 'border': 'hidden'}}>
                     <div className="picsArray">
                         <div className="listPics">
-                        {props.event.participantPhotos?.map(pic => (
-                            <React.Fragment key={pic}>
-                            {(!pic || loaded) && (
-                                <img
-                                src={pic || manImage}
-                                alt=""
-                                onLoad={() => setLoaded(true)}
-                                />
-                            )}
-                            </React.Fragment>
-                        ))}
+                            {props.event.participantPhotos?.map(pic => (
+                                <React.Fragment key={pic}>
+                                    {(!pic || loaded) && (
+                                        <img
+                                            src={pic || manImage}
+                                            alt=""
+                                            onLoad={() => setLoaded(true)}
+                                        />
+                                    )}
+                                </React.Fragment>
+                            ))}
                         </div>
                         <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank'
-                   rel="noopener noreferrer">
-                        <div className="viewAll" style={{
-                            'margin': '0 10px',
-                            'fontStyle': 'italic',
-                            'textDecoration': 'underline;max-width: 40%',
-                        }}>
-                            View All {props.event.participantPhotos?.length} Participants
-                        </div>
+                           rel="noopener noreferrer">
+                            <div className="viewAll" style={{
+                                'margin': '0 10px',
+                                'fontStyle': 'italic',
+                                'textDecoration': 'underline;max-width: 40%',
+                            }}>
+                                View All {props.event.participantPhotos?.length} Participants
+                            </div>
                         </a>
                         <FontAwesomeIcon icon={faChevronCircleRight}/>
                     </div>
@@ -152,12 +157,19 @@ export default function EventDetails(props) {
                         <div className="topic" style={{width: "10vw"}}>Host:</div>
                         <div className="hostBlock">{props.event.hostName}</div>
                         <div className="hostPic">
-                            <img
-                                src={(props.event.hostProfilePhoto === null || props.event.hostProfilePhoto === '') ? manImage : props.event.hostProfilePhoto}
-                                alt={""}/>
+                            {
+                                hostPhotoLoaded ?
+                                    <img
+                                        src={(props.event.hostProfilePhoto === null || props.event.hostProfilePhoto === '') ? manImage : props.event.hostProfilePhoto}
+                                        onError={handleImageLoadError}
+                                        alt={"Host Photo"}/>
+                                    :
+                                    <img src={manImage} alt={"Host Image"}/>
+                            }
+
                         </div>
                     </div>
-                    <div className="bottomHost" style={{display:'none'}}>
+                    <div className="bottomHost" style={{display: 'none'}}>
                         <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank'
                            rel="noopener noreferrer">
                             <button style={{'textDecoration': 'none', 'background': '0', 'border': 'hidden'}}>
