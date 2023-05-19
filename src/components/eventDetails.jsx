@@ -85,7 +85,7 @@ export default function EventDetails(props) {
                         fontFamily: 'Poppins',
                         lineHeight: '18px',
                     }}>
-                        Rs. 300/-
+                        Rs. {props.event.paymentAmount}/-
                     </div>
                 </div>
             }
