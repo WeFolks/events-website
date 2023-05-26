@@ -201,12 +201,14 @@ export default function BillingPage(props) {
                 <div className="item">
                     <span className="label">Ticket Price:</span>
                     <span className="value">₹{event.isPaid ? event.paymentAmount : 0}</span>
+                    <div style={{fontSize: '10px', marginBottom: '10px',marginTop: '5px'}}> + payment gateway fees</div>
                 </div>
-                <div className="item">
+                {/* <div className="item">
                     <span className="label">Total Price:</span>
-                    <div style={{fontSize: '10px', marginBottom: '10px'}}>(including convenience fees and tax)</div>
-                    <span className="value">₹{event.isPaid ? 1.02 * event.paymentAmount : 0}</span>
-                </div>
+                    <div style={{fontSize: '10px', marginBottom: '10px'}}>(including platform fees - 2.5%)</div>
+                    <div className="totalPrice"><span className="value">₹{event.isPaid ? 1.02 * event.paymentAmount : 0}</span> <div style={{fontSize: '10px', marginBottom: '10px', lineHeight:'25px'}}> + payment gateway fees(2-3%)</div>
+                    </div>
+                    </div> */}
             </div>
             <button className="payButton" onClick={handlePayClick}>{event.isPaid ? 'Pay Now' : 'Join For Free'}</button>
         </div>

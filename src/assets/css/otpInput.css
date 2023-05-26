@@ -2,7 +2,7 @@
 
 .otpInput {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background: linear-gradient(to bottom, #ffffff, #f8f8f8);
@@ -10,6 +10,10 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     max-width: 35rem;
     margin: 20px auto 0 auto;
+}
+
+.otpBoxes {
+    margin-bottom: 10px;
 }
 
 .resendOTP {

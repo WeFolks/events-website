@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 
 export default function Register(props) {
-    const {setShowLogin, closeModal, setUser, event} = props
+    const {setFormState, closeModal, setUser, event} = props
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');
@@ -102,7 +102,7 @@ export default function Register(props) {
 
                                 <div style={{marginBottom: '10px'}}>Or</div>
                                 <div style={{marginBottom: '10px'}}>Already a user? <a href={"#"} onClick={() => {
-                                    setShowLogin(true)
+                                    setFormState(0)
                                 }} style={{textDecoration: 'underline'}}>Login</a></div>
                                 <div className='privacy'>
                                     By agreeing to our <a

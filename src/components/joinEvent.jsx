@@ -36,21 +36,21 @@ export default function JoinEvent(props) {
     };
 
 
-    // const handleJoinEventClick = () => {
-    //     // console.log(props.event.date);
-    //     // console.log(props.event.time);
-    //
-    //     if (hasDateTimePassed(props.event.date, props.event.time)) {
-    //         window.alert("The event date and time have passed");
-    //     } else if (props.event.participants.length >= props.event.participantLimit) {
-    //         window.alert("The participant limit for this event has been reached");
-    //     } else if (props.event.category !== 0) {
-    //         window.alert("Download app to join invitational event");
-    //         // Redirect to app or popup
-    //     } else {
-    //         setIsModalOpen(true);
-    //     }
-    // };
+    const handleJoinEventClick = () => {
+        // console.log(props.event.date);
+        // console.log(props.event.time);
+    
+        if (hasDateTimePassed(props.event.date, props.event.time)) {
+            window.alert("The event date and time have passed");
+        } else if (props.event.participants.length >= props.event.participantLimit) {
+            window.alert("The participant limit for this event has been reached");
+        } else if (props.event.category !== 0) {
+            window.alert("Download app to join invitational event");
+            // Redirect to app or popup
+        } else {
+            setIsModalOpen(true);
+        }
+    };
     const handleModalClose = () => {
         setIsModalOpen(false);
     }
@@ -72,9 +72,7 @@ export default function JoinEvent(props) {
                         </div>
                     </button>
                 </a>
-                <button onClick={() => {
-                    window.location.href = "https://wefolks.co/folksapp"
-                }} //onClick={handleJoinEventClick}
+                <button onClick={handleJoinEventClick}
                         style={{textDecoration: 'none', width: '50%', background: 0, border: 'hidden'}}>
                     <div className="joinEventButton">
                         <div className="price">Rs. {props.event.paymentAmount}/-<br></br></div>
