@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect} from 'react';
 import '../assets/css/billingPage.css';
 import axios from "axios";
 import {ApolloClient, gql, InMemoryCache} from "@apollo/client";
@@ -8,7 +8,6 @@ export default function BillingPage(props) {
     const {user, event, closeModal} = props;
     const totalTicketPrice = event.webPaymentAmount;
     const rzpRef = useRef(null);
-    const [orderId, setOrderId] = useState(null);
     const {setEventRegistrationConfirmed} = useGlobalState();
 
 
@@ -66,14 +65,13 @@ export default function BillingPage(props) {
             );
 
             if (response.data && response.data.orderId) {
-                await setOrderId(response.data.orderId);
-                return true;
+                return response.data.orderId;
             } else {
                 throw new Error('Error getting order ID from server');
             }
         } catch (error) {
             window.alert('Error initiating order: ' + error.message);
-            return false;
+            return null;
         }
     };
 
@@ -151,7 +149,7 @@ export default function BillingPage(props) {
         // }
     };
 
-    const options = {
+    let options = {
         key: process.env.REACT_APP_FIREBASE_RAZORPAY, // Add your Razorpay Key ID here
         amount: totalTicketPrice * 100, // converting to paise (1 INR = 100 paise)
         currency: "INR",
@@ -176,7 +174,6 @@ export default function BillingPage(props) {
                 window.alert("Payment failed!");
             },
         },
-        order_id: orderId,
     };
 
     useEffect(() => {
@@ -191,8 +188,8 @@ export default function BillingPage(props) {
 
     const handlePayClick = async () => {
         if (event.isPaid) {
-            const orderInitiated = await initiateOrder();
-            if (orderInitiated) {
+            const orderId = await initiateOrder();
+            if (orderId) {
                 options.order_id = orderId;
 
                 if (rzpRef.current) {
