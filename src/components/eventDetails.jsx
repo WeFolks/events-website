@@ -13,7 +13,6 @@ fontawesome.library.add(faUsers, faMapMarker, faChevronCircleRight)
 
 export default function EventDetails(props) {
     const google = window.google;
-    console.log(props.event.participantPhotos);
     const [loaded, setLoaded] = useState(false);
     const [hostPhotoLoaded, setHostPhotoLoaded] = useState(true);
 
@@ -31,7 +30,6 @@ export default function EventDetails(props) {
 
     function launchMap() {
         const url = 'https://www.google.com/maps/dir//' + props.event.locationLatitude + ',' + props.event.locationLongitude;
-        console.log(url);
         //open url in new page
         window.open(url);
     }
@@ -65,7 +63,7 @@ export default function EventDetails(props) {
                 props.event.participantLimit != null && props.event.participantLimit !== 0 &&
                 <div className="description block"
                      style={{textAlign: "start", display: 'flex', justifyContent: 'start'}}>
-                    <div className="topic" style={{width: '40vw'}}>Participant Limit:</div>
+                    <div className="topic" id='parti' style={{width: '40vw'}}>Participant Limit:</div>
                     <div className="participantLimit" style={{
                         fontSize: '15px',
                         fontFamily: 'Poppins',
@@ -79,18 +77,27 @@ export default function EventDetails(props) {
                 props.event.participantLimit != null && props.event.participantLimit !== 0 &&
                 <div className="description block"
                      style={{textAlign: "start", display: 'flex', justifyContent: 'start'}}>
-                    <div className="topic" style={{width: '15vw'}}>Price:</div>
-                    <div className="participantLimit" style={{
+                    <div className="topic" id="pricy" style={{width: '15vw'}}>Price:</div>
+                    <div className="priceDiv" style={{
                         fontSize: '15px',
                         fontFamily: 'Poppins',
                         lineHeight: '18px',
                     }}>
-                        Rs. {props.event.paymentAmount}/-
+                        Rs. {props.event.paymentAmount}
+                    </div>
+
+
+                    <div style={{fontSize: '13px', lineHeight: '13px'}}> &nbsp;&nbsp;+
+                        Rs. {(props.event.webPaymentAmount - props.event.paymentAmount).toFixed(2)} (Platform
+                        Fee)
                     </div>
                 </div>
+
             }
 
-
+            <div className="downloadNow">
+                (Book using our free app and pay no Platform Fee for any activity)
+            </div>
             <div className="description block" style={{textAlign: "start"}}>
                 <div className="topic" style={{width: '40vw'}}>About the activity</div>
                 <div className="descContent">

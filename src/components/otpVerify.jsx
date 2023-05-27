@@ -17,12 +17,10 @@ export default function OtpInput(props) {
 
 
     const signUp = async (user) => {
-        console.log(user);
         try {
             const url = process.env.REACT_APP_SERVER_URL + '/user/sign_up/easy';
             const response = await axios.post(url, user);
 
-            console.log('SignUp successful:', response.data);
             const isParticipantPresent = event.participants.some(
                 (participant) => participant === response.data._id
             );
@@ -48,10 +46,9 @@ export default function OtpInput(props) {
         signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier)
             .then((result) => {
                 setConfirmationResult(result);
-                console.log('OTP sent:', result);
             })
             .catch((error) => {
-                console.log('Error sending OTP:', error);
+                window.alert('Error sending OTP:', error);
             });
     };
 
@@ -96,7 +93,6 @@ export default function OtpInput(props) {
         if (confirmationResult) {
             confirmationResult.confirm(code)
                 .then((result) => {
-                    console.log('OTP verification successful:', result);
                     const user = {
                         firstName: firstName,
                         lastName: lastName,
@@ -108,17 +104,16 @@ export default function OtpInput(props) {
                         .catch(e => console.error(e))
                 })
                 .catch((error) => {
-                    console.log('OTP verification failed:', error);
                     window.alert('OTP verification failed:', error.message);
                 });
         } else {
-            console.log('No confirmationResult found');
+            window.alert('No confirmation result found');
         }
     };
 
     return (
         <div className="otpInput">
-        <div style={{marginBottom:'20px', fontSize:'15px', color:'firebrick'}}>{error}</div>
+            <div style={{marginBottom: '20px', fontSize: '15px', color: 'firebrick'}}>{error}</div>
             <div className="otpBoxes" id='otpBox'>
                 <input
                     type="text"

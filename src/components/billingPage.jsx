@@ -2,14 +2,14 @@ import React, {useRef, useEffect, useState} from 'react';
 import '../assets/css/billingPage.css';
 import axios from "axios";
 import {ApolloClient, gql, InMemoryCache} from "@apollo/client";
+import useGlobalState from "../hooks/useGlobalState";
 
 export default function BillingPage(props) {
     const {user, event, closeModal} = props;
-    const totalTicketPrice = event.paymentAmount;
+    const totalTicketPrice = event.webPaymentAmount;
     const rzpRef = useRef(null);
     const [orderId, setOrderId] = useState(null);
-    const {setEventRegistrationConfirmed} = useState();
-    console.log(event.name)
+    const {setEventRegistrationConfirmed} = useGlobalState();
 
 
     const addPurchaseDocument = async (eventId, paymentId, orderId, signature) => {
@@ -22,15 +22,15 @@ export default function BillingPage(props) {
         });
 
         const ADD_PURCHASE_DOCUMENT = gql`
-            mutation AddPurchaseDocument($eventId: String!, $paymentId: String!, $orderId: String!, $signature: String!) {
-              addPurchaseDocument(eventId: $eventId, razorpayPaymentId: $paymentId, razorpayOrderId: $orderId, razorpaySignature: $signature) {
-                amount
-              }
+            mutation AddPurchaseDocument($eventId: String!, $paymentId: String!, $orderId: String!, $signature: String!, $paymentSource: Int!) {
+                addPurchaseDocument(eventId: $eventId, razorpayPaymentId: $paymentId, razorpayOrderId: $orderId, razorpaySignature: $signature, paymentSource: $paymentSource) {
+                    amount
+                }
             }
         `;
         orderId = orderId ?? '';
         signature = signature ?? '';
-
+        const paymentSource = 1;
 
         try {
             const result = await client.mutate({
@@ -40,6 +40,7 @@ export default function BillingPage(props) {
                     paymentId,
                     orderId,
                     signature,
+                    paymentSource
                 }
             });
             return result;
@@ -56,11 +57,16 @@ export default function BillingPage(props) {
         try {
             const response = await axios.post(
                 process.env.REACT_APP_SERVER_URL + '/razorpay/initiate_order', // Replace with your server URL
-                orderReq
+                orderReq,
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + user.token,
+                    },
+                }
             );
 
             if (response.data && response.data.orderId) {
-                setOrderId(response.data.orderId);
+                await setOrderId(response.data.orderId);
                 return true;
             } else {
                 throw new Error('Error getting order ID from server');
@@ -110,18 +116,39 @@ export default function BillingPage(props) {
         const signature = response.razorpay_signature;
 
         // Perform necessary actions, such as updating your database or showing a confirmation message
-        // console.log("Payment successful!");
-        // console.log(`Payment ID: ${paymentId}`);
-        // console.log(`Order ID: ${orderId}`);
-        // console.log(`Signature: ${signature}`);
+        // const capturePaymentRequest = {
+        //     paymentId: paymentId,
+        //     orderId: orderId,
+        //     amount: totalTicketPrice * 100, // Assuming the amount is in paise
+        // };
 
-        // You may want to verify the payment signature on your server using the Razorpay Secret Key
-        // Send a request to your server to verify the signature and update the database
+        // Send a request to your server to capture the payment and update the database
+        // try {
+        // Make a POST request to the capture payment API
+        // const captureResponse = await axios.post(
+        //     process.env.REACT_APP_SERVER_URL + '/razorpay/capture_order',
+        //     capturePaymentRequest,
+        //     {
+        //         headers: {
+        //             Authorization: 'Bearer ' + user.token,
+        //         },
+        //     }
+        // );
+
+        // Check the response for success
+        // if (captureResponse.data.success) {
+        // Payment captured successfully
         await addPurchaseDocument(event._id, paymentId, orderId, signature);
         await joinEvent(event._id);
         setEventRegistrationConfirmed(true);
-        window.alert("Event Joined. Check email for confirmation!");
+        window.alert('Event Joined. Check email for confirmation!');
         closeModal();
+        // } else {
+        //     throw new Error('Error capturing payment');
+        // }
+        // } catch (error) {
+        //     window.alert('Error capturing payment: ' + error.message);
+        // }
     };
 
     const options = {
@@ -165,7 +192,6 @@ export default function BillingPage(props) {
     const handlePayClick = async () => {
         if (event.isPaid) {
             const orderInitiated = await initiateOrder();
-
             if (orderInitiated) {
                 options.order_id = orderId;
 
@@ -201,12 +227,15 @@ export default function BillingPage(props) {
                 <div className="item">
                     <span className="label">Ticket Price:</span>
                     <span className="value">₹{event.isPaid ? event.paymentAmount : 0}</span>
+                    <div style={{fontSize: '10px', marginBottom: '10px', marginTop: '5px'}}> + payment gateway fees
+                    </div>
                 </div>
-                <div className="item">
+                {/* <div className="item">
                     <span className="label">Total Price:</span>
-                    <div style={{fontSize: '10px', marginBottom: '10px'}}>(including convenience fees and tax)</div>
-                    <span className="value">₹{event.isPaid ? 1.02 * event.paymentAmount : 0}</span>
-                </div>
+                    <div style={{fontSize: '10px', marginBottom: '10px'}}>(including platform fees - 2.5%)</div>
+                    <div className="totalPrice"><span className="value">₹{event.isPaid ? 1.02 * event.paymentAmount : 0}</span> <div style={{fontSize: '10px', marginBottom: '10px', lineHeight:'25px'}}> + payment gateway fees(2-3%)</div>
+                    </div>
+                    </div> */}
             </div>
             <button className="payButton" onClick={handlePayClick}>{event.isPaid ? 'Pay Now' : 'Join For Free'}</button>
         </div>

@@ -524,10 +524,28 @@ body {
     margin-top: -18vw;
 }
 
+.downloadNow {
+    font-size: 14px;
+    font-weight: 700;
+    color: red;
+    text-align: start;
+    margin-top: -20px;
+}
+
 /* smaller laptops */
 @media only screen and (min-width: 768px) {
     .initialData {
         height: auto;
+    }
+
+    #parti {
+        width: auto !important;
+        margin-right: 2vw;
+    }
+
+    #pricy {
+        width: auto !important;
+        margin-right: 2vw;
     }
 
     .picture {

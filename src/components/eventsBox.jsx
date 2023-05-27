@@ -41,14 +41,12 @@ export default function EventsBox() {
 
             try {
                 responseJson.result = await response.json();
-                console.log(responseJson.result);
             } catch (ex) {
                 responseJson.ok = false;
                 responseJson.result = null;
             }
 
             if (response.status !== 200) {
-                console.log(response.status);
                 setShowNotFound(true);
             } else {
                 setEvent(responseJson.result);
