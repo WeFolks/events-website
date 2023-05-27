@@ -13,7 +13,6 @@ fontawesome.library.add(faUsers, faMapMarker, faChevronCircleRight)
 
 export default function EventDetails(props) {
     const google = window.google;
-    console.log(props.event.participantPhotos);
     const [loaded, setLoaded] = useState(false);
     const [hostPhotoLoaded, setHostPhotoLoaded] = useState(true);
 
@@ -31,7 +30,6 @@ export default function EventDetails(props) {
 
     function launchMap() {
         const url = 'https://www.google.com/maps/dir//' + props.event.locationLatitude + ',' + props.event.locationLongitude;
-        console.log(url);
         //open url in new page
         window.open(url);
     }
@@ -87,11 +85,14 @@ export default function EventDetails(props) {
                     }}>
                         Rs. {props.event.paymentAmount}
                     </div>
-                     
-                    
-                    <div style={{fontSize: '13px', lineHeight:'13px'}}> &nbsp;&nbsp;+ Rs. {25} (Platform Fee)</div>
+
+
+                    <div style={{fontSize: '13px', lineHeight: '13px'}}> &nbsp;&nbsp;+
+                        Rs. {(props.event.webPaymentAmount - props.event.paymentAmount).toFixed(2)} (Platform
+                        Fee)
+                    </div>
                 </div>
-                
+
             }
 
             <div className="downloadNow">

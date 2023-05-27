@@ -37,9 +37,7 @@ export default function JoinEvent(props) {
 
 
     const handleJoinEventClick = () => {
-        // console.log(props.event.date);
-        // console.log(props.event.time);
-    
+
         if (hasDateTimePassed(props.event.date, props.event.time)) {
             window.alert("The event date and time have passed");
         } else if (props.event.participants.length >= props.event.participantLimit) {

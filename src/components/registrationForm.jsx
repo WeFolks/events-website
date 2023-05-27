@@ -14,7 +14,7 @@ const RegistrationForm = ({isModalOpen = false, closeModal, event}) => {
     return (
 
         (<div className={isModalOpen ? 'registration-form open' : 'registration-form'}>
-<div className="modal-overlay" onClick={closeModal}></div>
+            <div className="modal-overlay" onClick={closeModal}></div>
             <div className="modal-content">
                 {
                     (user)
@@ -43,26 +43,40 @@ const RegistrationForm = ({isModalOpen = false, closeModal, event}) => {
                                     />
                                 ) : (
                                     <div className='appRedirect'>
-                                      <div className="topBar">
-                <FontAwesomeIcon className="topIcon" icon={faChevronLeft} onClick={closeModal}/>
-                <h2>{'Welcome to Folks'}</h2>
-            </div>
-            <div className="redirectMain" >
-            <span style={{fontWeight:'700'}}> Book using mobile app and pay zero Platform Fee for all activities!</span>
-            <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project" target='_blank' rel="noopener noreferrer">
-                        <button style={{ textDecoration: 'none', background: 0, border: 'hidden' }}>
-                        <div className="downloadApp" style={{margin:'10px' , position:'inherit', top:'15px', right:'20px', padding:'10px', backgroundColor:"white", color:"#ff7958"}}>
-                            Download App
-                        </div>
-                        </button>
-                    </a>
-                    <br />
-                    <br />
-                    Or
-                    <br />
-                    <br />
-            <a onClick={()=>setFormState(1)} href=''> Proceed with website registration</a>
-            </div>
+                                        <div className="topBar">
+                                            <FontAwesomeIcon className="topIcon" icon={faChevronLeft}
+                                                             onClick={closeModal}/>
+                                            <h2>{'Welcome to Folks'}</h2>
+                                        </div>
+                                        <div className="redirectMain">
+                                            <span style={{fontWeight: '700'}}> Book using mobile app and pay zero Platform Fee for all activities!</span>
+                                            <a href="https://play.google.com/store/apps/details?id=com.folks.folks_project"
+                                               target='_blank' rel="noopener noreferrer">
+                                                <button
+                                                    style={{textDecoration: 'none', background: 0, border: 'hidden'}}>
+                                                    <div className="downloadApp" style={{
+                                                        margin: '10px',
+                                                        position: 'inherit',
+                                                        top: '15px',
+                                                        right: '20px',
+                                                        padding: '10px',
+                                                        backgroundColor: "white",
+                                                        color: "#ff7958"
+                                                    }}>
+                                                        Download App
+                                                    </div>
+                                                </button>
+                                            </a>
+                                            <br/>
+                                            <br/>
+                                            Or
+                                            <br/>
+                                            <br/>
+                                            <a onClick={(event) => {
+                                                event.preventDefault();
+                                                setFormState(1);
+                                            }} href=''> Proceed with website registration</a>
+                                        </div>
                                     </div>
                                 )
                             )

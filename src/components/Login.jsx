@@ -46,14 +46,11 @@ export default function Login(props) {
             email: email,
         };
         const url = process.env.REACT_APP_SERVER_URL + '/user/forgot_password';
-        console.log("Here")
         try {
             const res = await axios.post(url, data, {headers});
             setError(res.data.message);
             setShowForgotPassword(false);
-            console.log(res);
         } catch (e) {
-            console.log(e);
             setError(e);
         }
 
@@ -111,7 +108,7 @@ export default function Login(props) {
                                     </a>
                                 </div>
                                 {/* <div>Not a user?<a onClick={() => setFormState(0)}>Register here</a></div> */}
-                                {/*<div className='privacy'>*/}                                {/*    By agreeing to our <a*/}
+                                {/*<div className='privacy'>*/} {/*    By agreeing to our <a*/}
                                 {/*    href="https://github.com/WeFolks/FolksPrivacy/blob/main/privacy-policy.md">*/}
                                 {/*    Privacy*/}
                                 {/*    Policy</a>, you are helping us maintain a secure and trustworthy*/}
