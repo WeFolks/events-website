@@ -224,7 +224,7 @@ export default function BillingPage(props) {
                 <div className="item">
                     <span className="label">Ticket Price:</span>
                     <span className="value">₹{event.isPaid ? event.webPaymentAmount : 0}</span>
-                    <div style={{fontSize: '10px', marginBottom: '10px', marginTop: '5px'}}> + payment gateway fees
+                    <div style={{fontSize: '10px', marginBottom: '10px', marginTop: '5px'}}>
                     </div>
                 </div>
                 {/* <div className="item">
